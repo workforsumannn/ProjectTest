@@ -3,302 +3,223 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Surprise For My Sisters</title>
-    <!-- Tailwind CSS -->
+    <title>My Girl Bday Count Down: Prachuu</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Font Awesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
+        /* Custom CSS for Love Theme and Animations */
+        :root {
+            --primary-pink: #ff6699;
+            --dark-pink: #f04f7c;
+            --soft-white: #fefefe;
+            --shadow-color: rgba(255, 102, 153, 0.7);
+        }
+
         body {
-            font-family: 'Poppins', sans-serif;
-            background-color: #f8fafc;
-        }
-        
-        .font-serif-custom {
-            font-family: 'Dancing Script', cursive; /* Using a nice cursive font for headers */
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #1f112e 0%, #3a0020 100%); /* Deep night sky background */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden; /* Hide potential overflow from heart particles */
         }
 
-        /* Animations */
-        @keyframes blob {
-            0% { transform: translate(0px, 0px) scale(1); }
-            33% { transform: translate(30px, -50px) scale(1.1); }
-            66% { transform: translate(-20px, 20px) scale(0.9); }
-            100% { transform: translate(0px, 0px) scale(1); }
+        /* Heartbeat Animation for the main container */
+        .heartbeat-pulse {
+            animation: heartbeat 3s ease-in-out infinite;
         }
-        .animate-blob { animation: blob 7s infinite; }
-        .animation-delay-2000 { animation-delay: 2s; }
-        .animation-delay-4000 { animation-delay: 4s; }
-        
-        @keyframes spin-slow {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-        .animate-spin-slow { animation: spin-slow 8s linear infinite; }
 
-        .hidden-screen { display: none; }
-        
-        /* Smooth transitions */
-        .transition-screen {
-            transition: all 0.5s ease-in-out;
+        @keyframes heartbeat {
+            0%, 100% {
+                box-shadow: 0 0 20px 5px var(--shadow-color), 0 0 50px 10px rgba(255, 0, 100, 0.4);
+                transform: scale(1);
+            }
+            50% {
+                box-shadow: 0 0 30px 10px var(--shadow-color), 0 0 70px 20px rgba(255, 0, 100, 0.8);
+                transform: scale(1.02);
+            }
         }
+
+        /* Number Glow Animation */
+        .number-glow {
+            animation: text-glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes text-glow {
+            0% { text-shadow: 0 0 5px var(--soft-white), 0 0 10px var(--primary-pink); }
+            100% { text-shadow: 0 0 10px var(--soft-white), 0 0 20px var(--dark-pink); }
+        }
+
+        /* Floating Hearts Particle System (CSS only) */
+        .particle-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .heart-particle {
+            position: absolute;
+            font-size: 1.5rem;
+            color: var(--primary-pink);
+            opacity: 0;
+            animation: float-up 15s linear infinite;
+        }
+
+        @keyframes float-up {
+            0% { transform: translateY(100vh) scale(0.5); opacity: 0; }
+            5% { opacity: 0.8; }
+            95% { opacity: 0.8; }
+            100% { transform: translateY(-10vh) scale(1.2); opacity: 0; }
+        }
+
+        /* Generate individual particle animations with offsets */
+        .heart-particle:nth-child(1) { left: 10%; animation-delay: 0s; }
+        .heart-particle:nth-child(2) { left: 20%; animation-delay: 3s; }
+        .heart-particle:nth-child(3) { left: 35%; animation-delay: 6s; }
+        .heart-particle:nth-child(4) { left: 50%; animation-delay: 9s; }
+        .heart-particle:nth-child(5) { left: 65%; animation-delay: 12s; }
+        .heart-particle:nth-child(6) { left: 80%; animation-delay: 15s; }
+        .heart-particle:nth-child(7) { left: 5%; animation-delay: 1.5s; }
+        .heart-particle:nth-child(8) { left: 90%; animation-delay: 7.5s; }
+        .heart-particle:nth-child(9) { left: 45%; animation-delay: 4.5s; }
+        .heart-particle:nth-child(10) { left: 75%; animation-delay: 10.5s; }
+
     </style>
 </head>
-<body class="min-h-screen relative overflow-x-hidden selection:bg-pink-200 text-gray-800">
+<body>
 
-    <!-- Dynamic Background -->
-    <div class="fixed inset-0 z-0 opacity-40 pointer-events-none overflow-hidden">
-        <div class="absolute top-0 left-0 w-64 h-64 bg-pink-300 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob"></div>
-        <div class="absolute top-0 right-0 w-64 h-64 bg-purple-300 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob animation-delay-2000"></div>
-        <div class="absolute -bottom-32 left-20 w-64 h-64 bg-yellow-300 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob animation-delay-4000"></div>
+    <!-- CSS Heart Particle System -->
+    <div class="particle-container">
+        <!-- 10 hearts floating up -->
+        <div class="heart-particle">💖</div>
+        <div class="heart-particle">✨</div>
+        <div class="heart-particle">💖</div>
+        <div class="heart-particle">✨</div>
+        <div class="heart-particle">💖</div>
+        <div class="heart-particle">✨</div>
+        <div class="heart-particle">💖</div>
+        <div class="heart-particle">✨</div>
+        <div class="heart-particle">💖</div>
+        <div class="heart-particle">✨</div>
     </div>
 
-    <!-- Main App Container -->
-    <div id="app" class="relative z-10 w-full">
 
-        <!-- 1. WELCOME SCREEN -->
-        <div id="welcome-screen" class="flex flex-col items-center justify-center min-h-screen text-center p-6 transition-screen">
-            <div class="animate-bounce mb-6">
-                <i class="fas fa-gift text-6xl text-pink-600"></i>
+    <div id="countdown-app" class="relative z-10 p-6 md:p-10 w-11/12 max-w-lg mx-auto bg-pink-900 bg-opacity-30 backdrop-blur-sm rounded-3xl border-2 border-primary-pink shadow-xl heartbeat-pulse">
+
+        <!-- Header Message -->
+        <h1 class="text-3xl md:text-5xl font-extrabold text-center mb-2 text-white tracking-tight">
+            My Girl Bday Count Down
+        </h1>
+        <p class="text-xl md:text-3xl font-bold text-center mb-8 text-primary-pink">
+            For My Prachuu <span class="animate-ping inline-block">❤️</span>
+        </p>
+
+        <!-- Countdown Grid -->
+        <div id="countdown-display" class="grid grid-cols-4 gap-2 md:gap-4 text-center">
+
+            <!-- Days -->
+            <div class="bg-white/10 p-2 md:p-4 rounded-xl">
+                <div id="days" class="text-4xl md:text-6xl font-black text-white number-glow">00</div>
+                <div class="text-sm md:text-lg font-semibold text-primary-pink mt-1">DAYS</div>
             </div>
-            <h1 class="text-4xl md:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-purple-600 mb-4 font-serif-custom">
-                Surprise For My Sisters
-            </h1>
-            <p class="text-gray-600 text-lg mb-8 max-w-md mx-auto">
-                Ek chota sa surprise, duniya ki sabse best beheno ke liye.
-                <br />
-                <span class="text-sm text-pink-500 font-semibold">(Tap to Start)</span>
-            </p>
-            
-            <button onclick="handleStart()" class="group relative px-8 py-4 bg-gradient-to-r from-pink-500 to-purple-500 text-white rounded-full text-xl font-bold shadow-lg hover:shadow-2xl hover:scale-105 transition-all duration-300">
-                Open Surprise 💖
-                <div class="absolute inset-0 rounded-full bg-white opacity-20 group-hover:animate-ping"></div>
-            </button>
 
-            <!-- Floating background elements -->
-            <div class="absolute top-10 left-10 text-pink-200 animate-pulse delay-75 text-4xl"><i class="fas fa-heart"></i></div>
-            <div class="absolute bottom-20 right-10 text-purple-200 animate-pulse delay-150 text-5xl"><i class="fas fa-star"></i></div>
-        </div>
-
-        <!-- 2. SELECTION SCREEN -->
-        <div id="selection-screen" class="hidden-screen flex-col items-center justify-center min-h-screen p-4 transition-screen opacity-0 scale-90">
-            <h2 class="text-4xl font-bold text-gray-800 mb-8 font-serif-custom text-center">Choose Your Name ✨</h2>
-            
-            <div id="sisters-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full max-w-4xl mx-auto">
-                <!-- Buttons will be injected here via JavaScript -->
+            <!-- Hours -->
+            <div class="bg-white/10 p-2 md:p-4 rounded-xl">
+                <div id="hours" class="text-4xl md:text-6xl font-black text-white number-glow">00</div>
+                <div class="text-sm md:text-lg font-semibold text-primary-pink mt-1">HOURS</div>
             </div>
-        </div>
 
-        <!-- 3. MESSAGE SCREEN -->
-        <div id="message-screen" class="hidden-screen flex-col items-center justify-center min-h-screen p-6 transition-screen opacity-0 translate-y-10">
-            <div id="message-card" class="relative w-full max-w-2xl bg-white rounded-3xl shadow-2xl overflow-hidden border-4 border-white mx-auto">
-                <!-- Header Background -->
-                <div id="msg-header-bg" class="h-32 bg-gradient-to-r relative flex items-center justify-center transition-colors duration-300">
-                     <!-- Floating patterns -->
-                     <div id="msg-bg-pattern" class="absolute text-white text-opacity-20 text-6xl font-bold select-none animate-pulse">
-                       <!-- Patterns inserted via JS -->
-                     </div>
-                     
-                     <div class="absolute -bottom-10 h-24 w-24 rounded-full border-4 border-white bg-white flex items-center justify-center shadow-md">
-                        <div id="msg-icon-bg" class="h-20 w-20 rounded-full bg-gradient-to-tr flex items-center justify-center text-3xl text-white transition-colors duration-300">
-                          <i id="msg-icon" class="fas"></i>
-                        </div>
-                     </div>
-                </div>
+            <!-- Minutes -->
+            <div class="bg-white/10 p-2 md:p-4 rounded-xl">
+                <div id="minutes" class="text-4xl md:text-6xl font-black text-white number-glow">00</div>
+                <div class="text-sm md:text-lg font-semibold text-primary-pink mt-1">MINUTES</div>
+            </div>
 
-                <div class="pt-14 pb-8 px-8 text-center">
-                    <h2 id="msg-name" class="text-3xl font-bold text-gray-800 mb-2">Name</h2>
-                    <p id="msg-title" class="text-sm font-bold uppercase tracking-wider bg-clip-text text-transparent bg-gradient-to-r mb-6">
-                      Title
-                    </p>
-
-                    <div class="bg-pink-50 p-6 rounded-xl border border-pink-100 relative">
-                      <i class="fas fa-wand-magic-sparkles absolute -top-3 -left-3 text-yellow-400 text-2xl animate-spin-slow"></i>
-                      <p id="msg-text" class="text-lg md:text-xl text-gray-700 leading-relaxed font-medium italic">
-                        "Message..."
-                      </p>
-                      <i class="fas fa-heart absolute -bottom-3 -right-3 text-pink-500 text-xl animate-bounce"></i>
-                    </div>
-
-                    <div class="mt-8">
-                      <button onclick="handleBack()" class="flex items-center justify-center mx-auto px-6 py-2 rounded-full text-gray-600 hover:bg-gray-100 transition-colors border border-transparent hover:border-gray-200">
-                        <i class="fas fa-arrow-left mr-2"></i> Back to List
-                      </button>
-                    </div>
-                </div>
+            <!-- Seconds -->
+            <div class="bg-white/10 p-2 md:p-4 rounded-xl">
+                <div id="seconds" class="text-4xl md:text-6xl font-black text-white number-glow">00</div>
+                <div class="text-sm md:text-lg font-semibold text-primary-pink mt-1">SECONDS</div>
             </div>
         </div>
+
+        <!-- Birthday Message -->
+        <div id="message" class="mt-8 text-center text-xl md:text-2xl font-bold text-primary-pink hidden">
+            <!-- Message displayed when the countdown hits zero -->
+            HAPPY BIRTHDAY, MY LOVE! 🎉💖
+        </div>
+
+        <p id="target-date-info" class="text-center text-sm mt-6 text-white/70"></p>
 
     </div>
 
-    <!-- JavaScript Logic -->
     <script>
-        // --- Data ---
-        const sistersData = [
-            {
-                id: 'gudly',
-                name: 'Gudly',
-                color: 'from-pink-400 to-rose-500',
-                iconClass: 'fa-face-smile',
-                title: "The Cutest Soul",
-                message: "Gudly, tu sirf naam se nahi, dil se bhi cute hai! ✨ Teri wo choti-choti baatein aur tera innocent sa nature hamesha mere chehre pe smile lata hai. Tu hamesha aise hi muskurati reh!",
-                bgPattern: "💕"
-            },
-            {
-                id: 'nishi',
-                name: 'Nishi',
-                color: 'from-purple-400 to-indigo-500',
-                iconClass: 'fa-star',
-                title: "The Rockstar",
-                message: "Nishi, tu hamari family ki powerhouse hai! 🎸 Tera gussa aur tera pyaar, dono hi unique hain. Tere bina life thodi boring hoti. You are truly special and strong!",
-                bgPattern: "⭐"
-            },
-            {
-                id: 'jannat',
-                name: 'Jannat',
-                color: 'from-cyan-400 to-blue-500',
-                iconClass: 'fa-wand-magic-sparkles',
-                title: "Heaven on Earth",
-                message: "Jannat, jaisa tera naam hai, waisi hi tu hai. ☁️ Tu ghar ki ronak hai. Teri presence se sab kuch positive lagta hai. Always keep shining like a bright star, meri pyaari behen!",
-                bgPattern: "✨"
-            },
-            {
-                id: 'lipsha',
-                name: 'Lipsha',
-                color: 'from-emerald-400 to-teal-500',
-                iconClass: 'fa-heart',
-                title: "The Caring One",
-                message: "Lipsha, teri care karne ka style sabse alag hai. ❤️ Tu door reh kar bhi paas lagti hai. Teri samajhdaari aur tera support mere liye bahut mayne rakhta hai. Thank you for being you!",
-                bgPattern: "🌿"
-            },
-            {
-                id: 'soumyashree',
-                name: 'Soumyashree',
-                color: 'from-orange-400 to-amber-500',
-                iconClass: 'fa-gift',
-                title: "The Graceful One",
-                message: "Soumyashree, tera nature sabse sweet aur elegant hai. 🎀 Tu shaitan bhi hai aur samajhdaar bhi. Bhagwan kare teri saari wishes poori hon aur tu hamesha khush rahe!",
-                bgPattern: "🦋"
+        // JavaScript for Countdown Logic
+        const DAYS = document.getElementById('days');
+        const HOURS = document.getElementById('hours');
+        const MINUTES = document.getElementById('minutes');
+        const SECONDS = document.getElementById('seconds');
+        const MESSAGE = document.getElementById('message');
+        const TARGET_INFO = document.getElementById('target-date-info');
+
+        // Target Date: October 16th
+        const targetMonth = 9; // October is 9 (0-indexed)
+        const targetDay = 16;
+
+        function getNextBirthday() {
+            const now = new Date();
+            let targetYear = now.getFullYear();
+            let targetDate = new Date(targetYear, targetMonth, targetDay);
+
+            // If the current date is past October 16th, set the target for the next year.
+            if (now > targetDate) {
+                targetYear++;
+                targetDate = new Date(targetYear, targetMonth, targetDay);
             }
-        ];
 
-        // --- DOM Elements ---
-        const screens = {
-            welcome: document.getElementById('welcome-screen'),
-            selection: document.getElementById('selection-screen'),
-            message: document.getElementById('message-screen')
+            TARGET_INFO.textContent = `Counting down to October 16, ${targetYear}`;
+            return targetDate;
+        }
+
+        let countdownInterval;
+
+        function updateCountdown() {
+            const now = new Date();
+            const targetDate = getNextBirthday(); // Re-calculate target to ensure correct year
+            const diff = targetDate - now;
+
+            if (diff <= 0) {
+                // Birthday reached!
+                clearInterval(countdownInterval);
+                document.getElementById('countdown-display').classList.add('hidden');
+                MESSAGE.classList.remove('hidden');
+                // You can add confetti or other celebratory effects here if needed!
+                return;
+            }
+
+            // Calculations
+            const totalSeconds = Math.floor(diff / 1000);
+            const days = Math.floor(totalSeconds / (60 * 60 * 24));
+            const hours = Math.floor((totalSeconds % (60 * 60 * 24)) / (60 * 60));
+            const minutes = Math.floor((totalSeconds % (60 * 60)) / 60);
+            const seconds = totalSeconds % 60;
+
+            // Update DOM
+            DAYS.textContent = String(days).padStart(2, '0');
+            HOURS.textContent = String(hours).padStart(2, '0');
+            MINUTES.textContent = String(minutes).padStart(2, '0');
+            SECONDS.textContent = String(seconds).padStart(2, '0');
+        }
+
+        // Initialize and start the countdown
+        window.onload = function() {
+            updateCountdown(); // Initial call to display immediately
+            countdownInterval = setInterval(updateCountdown, 1000);
         };
-        const sistersGrid = document.getElementById('sisters-grid');
-
-        // --- Functions ---
-
-        // Initialize Selection Screen
-        function initSelectionScreen() {
-            sistersGrid.innerHTML = '';
-            sistersData.forEach(sister => {
-                const btn = document.createElement('button');
-                btn.className = "group relative flex items-center p-4 bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border border-pink-100 overflow-hidden w-full text-left";
-                btn.onclick = () => handleSelectSister(sister);
-                
-                btn.innerHTML = `
-                    <div class="absolute inset-0 bg-gradient-to-r ${sister.color} opacity-0 group-hover:opacity-10 transition-opacity duration-300"></div>
-                    
-                    <div class="h-14 w-14 min-w-[3.5rem] rounded-full bg-gradient-to-tr ${sister.color} flex items-center justify-center shadow-lg transform group-hover:rotate-12 transition-transform duration-300">
-                        <i class="fas ${sister.iconClass} text-white text-xl"></i>
-                    </div>
-                    
-                    <div class="ml-4 flex-grow">
-                        <h3 class="text-xl font-bold text-gray-800 group-hover:text-pink-600 transition-colors">${sister.name}</h3>
-                        <p class="text-xs text-gray-500">Tap to reveal message</p>
-                    </div>
-
-                    <div class="text-gray-300 group-hover:text-pink-400 transition-colors">
-                        <i class="fas fa-arrow-left rotate-180 text-xl"></i>
-                    </div>
-                `;
-                sistersGrid.appendChild(btn);
-            });
-        }
-
-        function handleStart() {
-            // Animate Welcome Out
-            screens.welcome.classList.add('opacity-0', 'scale-90');
-            
-            setTimeout(() => {
-                screens.welcome.classList.add('hidden-screen');
-                screens.selection.classList.remove('hidden-screen');
-                initSelectionScreen();
-                
-                // Small delay to allow display:block to apply before animating opacity
-                requestAnimationFrame(() => {
-                    screens.selection.classList.remove('opacity-0', 'scale-90');
-                    screens.selection.classList.add('opacity-100', 'scale-100');
-                });
-            }, 500);
-        }
-
-        function handleSelectSister(sister) {
-            // Animate Selection Out
-            screens.selection.classList.remove('opacity-100', 'scale-100');
-            screens.selection.classList.add('opacity-0', 'translate-y-10');
-
-            // Update Message Content
-            updateMessageContent(sister);
-
-            setTimeout(() => {
-                screens.selection.classList.add('hidden-screen');
-                screens.selection.classList.remove('translate-y-10'); // reset for next time
-
-                screens.message.classList.remove('hidden-screen');
-                
-                requestAnimationFrame(() => {
-                    screens.message.classList.remove('opacity-0', 'translate-y-10');
-                    screens.message.classList.add('opacity-100', 'translate-y-0');
-                });
-            }, 300);
-        }
-
-        function updateMessageContent(sister) {
-            // Elements
-            const headerBg = document.getElementById('msg-header-bg');
-            const bgPattern = document.getElementById('msg-bg-pattern');
-            const iconBg = document.getElementById('msg-icon-bg');
-            const icon = document.getElementById('msg-icon');
-            const name = document.getElementById('msg-name');
-            const title = document.getElementById('msg-title');
-            const text = document.getElementById('msg-text');
-
-            // Set Colors & Content
-            headerBg.className = `h-32 bg-gradient-to-r ${sister.color} relative flex items-center justify-center transition-colors duration-300`;
-            iconBg.className = `h-20 w-20 rounded-full bg-gradient-to-tr ${sister.color} flex items-center justify-center text-3xl text-white transition-colors duration-300`;
-            
-            bgPattern.textContent = `${sister.bgPattern} ${sister.bgPattern} ${sister.bgPattern}`;
-            icon.className = `fas ${sister.iconClass}`;
-            name.textContent = sister.name;
-            title.textContent = sister.title;
-            title.className = `text-sm font-bold uppercase tracking-wider bg-clip-text text-transparent bg-gradient-to-r ${sister.color} mb-6`;
-            text.textContent = `"${sister.message}"`;
-        }
-
-        function handleBack() {
-            // Animate Message Out
-            screens.message.classList.remove('opacity-100', 'translate-y-0');
-            screens.message.classList.add('opacity-0', '-translate-x-10');
-
-            setTimeout(() => {
-                screens.message.classList.add('hidden-screen');
-                screens.message.classList.remove('-translate-x-10'); // reset
-
-                screens.selection.classList.remove('hidden-screen');
-                
-                requestAnimationFrame(() => {
-                    screens.selection.classList.remove('opacity-0', 'translate-y-10'); // ensure these are gone
-                    screens.selection.classList.add('opacity-100', 'scale-100');
-                });
-            }, 300);
-        }
 
     </script>
 </body>
