@@ -1,0 +1,230 @@
+import React, { useState, useEffect } from 'react';
+import { Heart, Star, Gift, Sparkles, ArrowLeft, Smile, Music } from 'lucide-react';
+
+const SisterSurprise = () => {
+  const [currentScreen, setCurrentScreen] = useState('welcome'); // welcome, selection, message
+  const [selectedSister, setSelectedSister] = useState(null);
+  const [animationClass, setAnimationClass] = useState('');
+
+  // Data for each sister with unique messages and themes
+  const sistersData = [
+    {
+      id: 'gudly',
+      name: 'Gudly',
+      color: 'from-pink-400 to-rose-500',
+      icon: <Smile className="w-8 h-8 text-white" />,
+      title: "The Cutest Soul",
+      message: "Gudly, tu sirf naam se nahi, dil se bhi cute hai! ✨ Teri wo choti-choti baatein aur tera innocent sa nature hamesha mere chehre pe smile lata hai. Tu hamesha aise hi muskurati reh!",
+      bgPattern: "💕"
+    },
+    {
+      id: 'nishi',
+      name: 'Nishi',
+      color: 'from-purple-400 to-indigo-500',
+      icon: <Star className="w-8 h-8 text-white" />,
+      title: "The Rockstar",
+      message: "Nishi, tu hamari family ki powerhouse hai! 🎸 Tera gussa aur tera pyaar, dono hi unique hain. Tere bina life thodi boring hoti. You are truly special and strong!",
+      bgPattern: "⭐"
+    },
+    {
+      id: 'jannat',
+      name: 'Jannat',
+      color: 'from-cyan-400 to-blue-500',
+      icon: <Sparkles className="w-8 h-8 text-white" />,
+      title: "Heaven on Earth",
+      message: "Jannat, jaisa tera naam hai, waisi hi tu hai. ☁️ Tu ghar ki ronak hai. Teri presence se sab kuch positive lagta hai. Always keep shining like a bright star, meri pyaari behen!",
+      bgPattern: "✨"
+    },
+    {
+      id: 'lipsha',
+      name: 'Lipsha',
+      color: 'from-emerald-400 to-teal-500',
+      icon: <Heart className="w-8 h-8 text-white" />,
+      title: "The Caring One",
+      message: "Lipsha, teri care karne ka style sabse alag hai. ❤️ Tu door reh kar bhi paas lagti hai. Teri samajhdaari aur tera support mere liye bahut mayne rakhta hai. Thank you for being you!",
+      bgPattern: "🌿"
+    },
+    {
+      id: 'soumyashree',
+      name: 'Soumyashree',
+      color: 'from-orange-400 to-amber-500',
+      icon: <Gift className="w-8 h-8 text-white" />,
+      title: "The Graceful One",
+      message: "Soumyashree, tera nature sabse sweet aur elegant hai. 🎀 Tu shaitan bhi hai aur samajhdaar bhi. Bhagwan kare teri saari wishes poori hon aur tu hamesha khush rahe!",
+      bgPattern: "🦋"
+    }
+  ];
+
+  const handleStart = () => {
+    setAnimationClass('opacity-0 scale-90 transition-all duration-500');
+    setTimeout(() => {
+      setCurrentScreen('selection');
+      setAnimationClass('opacity-100 scale-100 transition-all duration-500');
+    }, 500);
+  };
+
+  const handleSelectSister = (sister) => {
+    setSelectedSister(sister);
+    setAnimationClass('opacity-0 translate-y-10 transition-all duration-300');
+    setTimeout(() => {
+      setCurrentScreen('message');
+      setAnimationClass('opacity-100 translate-y-0 transition-all duration-500');
+    }, 300);
+  };
+
+  const handleBack = () => {
+    setAnimationClass('opacity-0 -translate-x-10 transition-all duration-300');
+    setTimeout(() => {
+      setSelectedSister(null);
+      setCurrentScreen('selection');
+      setAnimationClass('opacity-100 translate-x-0 transition-all duration-500');
+    }, 300);
+  };
+
+  // Render Functions
+  const renderWelcome = () => (
+    <div className={`flex flex-col items-center justify-center min-h-screen text-center p-6 ${animationClass}`}>
+      <div className="animate-bounce mb-6">
+        <Gift size={64} className="text-pink-600" />
+      </div>
+      <h1 className="text-4xl md:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-purple-600 mb-4 font-serif">
+        Surprise For My Sisters
+      </h1>
+      <p className="text-gray-600 text-lg mb-8 max-w-md">
+        Ek chota sa surprise, duniya ki sabse best beheno ke liye.
+        <br />
+        <span className="text-sm text-pink-500">(Tap to Start)</span>
+      </p>
+      
+      <button 
+        onClick={handleStart}
+        className="group relative px-8 py-4 bg-gradient-to-r from-pink-500 to-purple-500 text-white rounded-full text-xl font-bold shadow-lg hover:shadow-2xl hover:scale-105 transition-all duration-300"
+      >
+        Open Surprise 💖
+        <div className="absolute inset-0 rounded-full bg-white opacity-20 group-hover:animate-ping"></div>
+      </button>
+
+      {/* Floating background elements */}
+      <div className="absolute top-10 left-10 text-pink-200 animate-pulse delay-75"><Heart size={40} /></div>
+      <div className="absolute bottom-20 right-10 text-purple-200 animate-pulse delay-150"><Star size={50} /></div>
+    </div>
+  );
+
+  const renderSelection = () => (
+    <div className={`flex flex-col items-center justify-center min-h-screen p-4 ${animationClass}`}>
+      <h2 className="text-3xl font-bold text-gray-800 mb-8 font-serif">Choose Your Name ✨</h2>
+      
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full max-w-4xl">
+        {sistersData.map((sister) => (
+          <button
+            key={sister.id}
+            onClick={() => handleSelectSister(sister)}
+            className="group relative flex items-center p-4 bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border border-pink-100 overflow-hidden"
+          >
+            <div className={`absolute inset-0 bg-gradient-to-r ${sister.color} opacity-0 group-hover:opacity-10 transition-opacity duration-300`}></div>
+            
+            <div className={`h-14 w-14 rounded-full bg-gradient-to-tr ${sister.color} flex items-center justify-center shadow-lg transform group-hover:rotate-12 transition-transform duration-300`}>
+              {sister.icon}
+            </div>
+            
+            <div className="ml-4 text-left">
+              <h3 className="text-xl font-bold text-gray-800 group-hover:text-pink-600 transition-colors">{sister.name}</h3>
+              <p className="text-xs text-gray-500">Tap to reveal message</p>
+            </div>
+
+            <div className="absolute right-4 text-gray-300 group-hover:text-pink-400 transition-colors">
+              <ArrowLeft className="rotate-180" size={20} />
+            </div>
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+
+  const renderMessage = () => (
+    <div className={`flex flex-col items-center justify-center min-h-screen p-6 ${animationClass}`}>
+      {selectedSister && (
+        <div className="relative w-full max-w-2xl bg-white rounded-3xl shadow-2xl overflow-hidden border-4 border-white">
+          {/* Header Background */}
+          <div className={`h-32 bg-gradient-to-r ${selectedSister.color} relative flex items-center justify-center`}>
+             {/* Floating patterns */}
+             <div className="absolute text-white text-opacity-20 text-6xl font-bold select-none animate-pulse">
+               {selectedSister.bgPattern} {selectedSister.bgPattern} {selectedSister.bgPattern}
+             </div>
+             
+             <div className="absolute -bottom-10 h-24 w-24 rounded-full border-4 border-white bg-white flex items-center justify-center shadow-md">
+                <div className={`h-20 w-20 rounded-full bg-gradient-to-tr ${selectedSister.color} flex items-center justify-center`}>
+                  {selectedSister.icon}
+                </div>
+             </div>
+          </div>
+
+          <div className="pt-14 pb-8 px-8 text-center">
+            <h2 className="text-3xl font-bold text-gray-800 mb-2">{selectedSister.name}</h2>
+            <p className={`text-sm font-semibold uppercase tracking-wider bg-clip-text text-transparent bg-gradient-to-r ${selectedSister.color} mb-6`}>
+              {selectedSister.title}
+            </p>
+
+            <div className="bg-pink-50 p-6 rounded-xl border border-pink-100 relative">
+              <Sparkles className="absolute -top-3 -left-3 text-yellow-400 w-8 h-8 animate-spin-slow" />
+              <p className="text-lg md:text-xl text-gray-700 leading-relaxed font-medium italic">
+                "{selectedSister.message}"
+              </p>
+              <Heart className="absolute -bottom-3 -right-3 text-pink-500 w-6 h-6 animate-bounce" fill="currentColor" />
+            </div>
+
+            <div className="mt-8">
+              <button 
+                onClick={handleBack}
+                className="flex items-center justify-center mx-auto px-6 py-2 rounded-full text-gray-600 hover:bg-gray-100 transition-colors"
+              >
+                <ArrowLeft size={18} className="mr-2" /> Back to List
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+
+  return (
+    <div className="min-h-screen bg-slate-50 font-sans selection:bg-pink-200">
+      {/* Dynamic Background */}
+      <div className="fixed inset-0 z-0 opacity-40 pointer-events-none overflow-hidden">
+        <div className="absolute top-0 left-0 w-64 h-64 bg-pink-300 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob"></div>
+        <div className="absolute top-0 right-0 w-64 h-64 bg-purple-300 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob animation-delay-2000"></div>
+        <div className="absolute -bottom-32 left-20 w-64 h-64 bg-yellow-300 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob animation-delay-4000"></div>
+      </div>
+
+      <div className="relative z-10">
+        {currentScreen === 'welcome' && renderWelcome()}
+        {currentScreen === 'selection' && renderSelection()}
+        {currentScreen === 'message' && renderMessage()}
+      </div>
+
+      <style jsx global>{`
+        @keyframes blob {
+          0% { transform: translate(0px, 0px) scale(1); }
+          33% { transform: translate(30px, -50px) scale(1.1); }
+          66% { transform: translate(-20px, 20px) scale(0.9); }
+          100% { transform: translate(0px, 0px) scale(1); }
+        }
+        .animate-blob {
+          animation: blob 7s infinite;
+        }
+        .animation-delay-2000 {
+          animation-delay: 2s;
+        }
+        .animation-delay-4000 {
+          animation-delay: 4s;
+        }
+        .animate-spin-slow {
+            animation: spin 3s linear infinite;
+        }
+      `}</style>
+    </div>
+  );
+};
+
+export default SisterSurprise;
+
